@@ -20,6 +20,8 @@ import { HomeComponent } from './components/home/home.component';
 import { CustomerlistingComponent } from './components/customerlisting/customerlisting.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserReducer } from './Store/User/User.Reducer';
+import { UserEffects } from './Store/User/User.Effects';
 
 @NgModule({
   declarations: [
@@ -38,8 +40,8 @@ import { LoginComponent } from './components/login/login.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({associate:AssociateReducer}),
-    EffectsModule.forRoot([AssociateEffects,AppEffects]),
+    StoreModule.forRoot({associate:AssociateReducer,user:UserReducer}),
+    EffectsModule.forRoot([AssociateEffects,AppEffects,UserEffects]),
     StoreDevtoolsModule.instrument({maxAge:25,logOnly: !isDevMode() }),
     MatTableModule 
   ],

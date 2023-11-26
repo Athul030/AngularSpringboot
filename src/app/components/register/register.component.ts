@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { showalert } from 'src/app/Store/Common/App.Action';
+import { Users } from 'src/app/Store/Model/User.model';
+import { beginRegister } from 'src/app/Store/User/User.Action';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
 
-  constructor(private builder:FormBuilder){
+  constructor(private builder:FormBuilder,private store:Store){
     
   }
 
@@ -25,7 +29,23 @@ export class RegisterComponent {
 
   Proceedregister(){
     if(this.registerform.valid){
-      
+      if(this.registerform.value.password === this.registerform.value.confirmpassword){
+        const _userobj:Users={
+          username: this.registerform.value.username as string,
+          password: this.registerform.value.password as string,
+          name: this.registerform.value.name as string,
+          email: this.registerform.value.email as string,
+          phone: this.registerform.value.phone as string,
+          gender: this.registerform.value.gender as string,
+          role: 'user',
+          status: true,
+        
+        }
+        this.store.dispatch(beginRegister({userdata:_userobj}))
+      }else{
+        this.store.dispatch(showalert({message:'Password mismatch', resulttype: 'fail'}))
+
+      }
     }
 
   }

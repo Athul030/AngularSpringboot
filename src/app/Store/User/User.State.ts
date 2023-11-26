@@ -3,4 +3,14 @@ import { UserModel, Users } from "../Model/User.model";
 
 export const UserAdapter = createEntityAdapter<Users>();
 
-export const UserState:UserModel = UserAdapter.getInitialState()
+export const UserState:UserModel = UserAdapter.getInitialState({
+    
+    userinfo:{
+        id:0,
+        username: '',
+        email: '',
+        name: '',
+        role: '',
+        status: false
+    }
+})

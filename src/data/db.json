@@ -81,9 +81,17 @@
       "status": true
     }
   ],
-  "user":[
+  "user": [
     {
-      
+      "username": "admin",
+      "password": "12345",
+      "name": "adminuser",
+      "email": "admin@gmail.com",
+      "phone": "9633513774",
+      "gender": "male",
+      "role": "user",
+      "status": true,
+      "id": 1
     }
   ]
 }

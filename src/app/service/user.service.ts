@@ -11,7 +11,7 @@ export class UserService {
 
    }
 
-   APIBaseUrl='http://localhost:3000/user/'
+   APIBaseUrl='http://localhost:3000/user'
 
    UserRegistration(userdata:Users){
     return this.http.post(this.APIBaseUrl,userdata)

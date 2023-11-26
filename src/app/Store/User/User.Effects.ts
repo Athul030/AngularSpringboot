@@ -12,8 +12,6 @@ export class UserEffects{
 
     constructor(private action:Actions, private service:UserService,private router:Router){
 
-
-
     }
 
 
@@ -33,7 +31,12 @@ export class UserEffects{
                     return showalert({message:'Registered successfully',resulttype:'pass'})
                 }),
                 //if an error occur, it returns an observable of an empty action ('of())
-                catchError((_error)=>of(showalert({message:'Registration Failed due to: '+_error.message,resulttype:'fail'})))
+                // catchError((_error)=>of(showalert({message:'Registration Failed due to: '+_error.message,resulttype:'fail'})))
+
+                catchError((error) => {
+                    console.error('Registration Failed:', error); // Log the error to the console for debugging
+                    return of(showalert({ message: 'Registration Failed due to: ' + error.message, resulttype: 'fail' }));
+                  })
             )
         })
     )
