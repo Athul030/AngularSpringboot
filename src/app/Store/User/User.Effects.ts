@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserService } from "src/app/service/user.service";
-import { beginRegister } from "./User.Action";
+import { beginLogin, beginRegister } from "./User.Action";
 import { catchError, exhaustMap, map, of } from "rxjs";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { showalert } from "../Common/App.Action";
@@ -37,6 +37,32 @@ export class UserEffects{
                     console.error('Registration Failed:', error); // Log the error to the console for debugging
                     return of(showalert({ message: 'Registration Failed due to: ' + error.message, resulttype: 'fail' }));
                   })
+            )
+        })
+    )
+    )
+
+
+
+    _userlogin = createEffect(()=>
+    this.action.pipe(
+        ofType(beginLogin),
+        exhaustMap((action)=>{
+            return this.service.UserLogin(action.usercred).pipe(
+                map((data)=>{
+                    if(data.length>0){
+                    const _userdata=data[0];
+                    if(_userdata.status===true){
+                    this.router.navigate([''])
+                    return showalert({message:'Login successfully',resulttype:'pass'})
+                    }else{
+                        return showalert({message:'Inactive User',resulttype:'fail'})
+                    }
+                }else{
+                    return showalert({message:'Login failed: Invalid credentials',resulttype:'fail'})
+                }
+                }),
+                
             )
         })
     )
