@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Roleaccess, Roles, Usercred, Userinfo, Users } from '../Store/Model/User.model';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,15 @@ export class UserService {
 
    SetUserToLocalStorage(userdata:Userinfo){
     localStorage.setItem('userdata',JSON.stringify(userdata))
+   }
+
+   UpdateUser(userid:number,role:string){
+    return this.http.get<Users>(this.APIBaseUrl+'/'+userid).pipe(
+      switchMap((data)=>{
+        data.role = role;
+        return this.http.put(this.APIBaseUrl+'/'+userid,data)
+      })
+    )
    }
 
    GetuserdatafromStorage(){

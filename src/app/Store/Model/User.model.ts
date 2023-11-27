@@ -17,7 +17,7 @@ export interface Usercred{
 }
 
 export interface Userinfo{
-    id:0,
+    id:number,
     username:string,
     name:string,
     email:string,

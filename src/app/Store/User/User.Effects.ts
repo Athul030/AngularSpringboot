@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserService } from "src/app/service/user.service";
-import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, fetchmenu, fetchmenusuccess, getroles, getrolessuccess, getuserbycodesuccess, getuserbydcode, getusers, getuserssuccess } from "./User.Action";
+import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, fetchmenu, fetchmenusuccess, getroles, getrolessuccess, getuserbycodesuccess, getuserbydcode, getusers, getuserssuccess, updateuserrole } from "./User.Action";
 import { catchError, exhaustMap, map, of, switchMap } from "rxjs";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { showalert } from "../Common/App.Action";
@@ -144,6 +144,21 @@ export class UserEffects{
                     }else{
                         return of(duplicateUserSuccess({isdup:false}))
                     }   }),
+                    catchError((_error) => of(showalert({ message: 'Get userbycode Failed due to :.' + _error.message, resulttype: 'fail' })))
+            )
+        })
+    )
+    )
+
+
+    _assignrole = createEffect(()=>
+    this.action.pipe(
+        ofType(updateuserrole),
+        switchMap((action)=>{
+            return this.service.UpdateUser(action.userid,action.userrole).pipe(
+                switchMap(()=>{
+                        return of(getusers(),showalert({ message: 'Updated Succesfully', resulttype: 'pass' }))
+                   }),
                     catchError((_error) => of(showalert({ message: 'Get userbycode Failed due to :.' + _error.message, resulttype: 'fail' })))
             )
         })

@@ -81,8 +81,6 @@
       "status": true
     }
   ],
-
-
   "user": [
     {
       "username": "admin",
@@ -102,60 +100,63 @@
       "email": "nt@in.com",
       "phone": "678889999",
       "gender": "female",
-      "role": "user",
+      "role": "manager",
       "status": true,
       "id": 2
     }
   ],
-  "role":[
+  "role": [
     {
-      "code":"admin",
-      "name":"Admin"
-    },{
-      "code":"manager",
-      "name":"Manager"
-    },{
-      "code":"user",
-      "name":"User"
+      "code": "admin",
+      "name": "Admin"
+    },
+    {
+      "code": "manager",
+      "name": "Manager"
+    },
+    {
+      "code": "user",
+      "name": "User"
     }
   ],
-  "menu":[
+  "menu": [
     {
-      "code":"associate",
-      "name":"Associate"
-    },{
-      "code":"customer",
-      "name":"Customer"
-    },{
-      "code":"user",
-      "name":"User"
+      "code": "associate",
+      "name": "Associate"
+    },
+    {
+      "code": "customer",
+      "name": "Customer"
+    },
+    {
+      "code": "user",
+      "name": "User"
     }
   ],
-  "roleaccess":[
+  "roleaccess": [
     {
-      "role":"admin",
-      "menu":"associate"
+      "role": "admin",
+      "menu": "associate"
     },
     {
-      "role":"admin",
-      "menu":"customer"
+      "role": "admin",
+      "menu": "customer"
     },
     {
-      "role":"admin",
-      "menu":"user"
+      "role": "admin",
+      "menu": "user"
     },
     {
-      "role":"manager",
-      "menu":"associate"
+      "role": "manager",
+      "menu": "associate"
     },
     {
-      "role":"manager",
-      "menu":"customer"
+      "role": "manager",
+      "menu": "customer"
     },
     {
-      "role":"user",
-      "menu":"associate"
+      "role": "user",
+      "menu": "associate"
     }
   ]
-
 }

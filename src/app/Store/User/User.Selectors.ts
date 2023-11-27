@@ -15,4 +15,4 @@ export const getuserlist = createSelector(getUserState,userselector.selectAll)
 
 export const getallroles = createSelector(getUserState,(state)=> state.roles)
 
-export const getuserbydcode = createSelector(getUserState,(state)=> state.userinfo)
+export const getUserbydcode = createSelector(getUserState,(state)=> state.userinfo)

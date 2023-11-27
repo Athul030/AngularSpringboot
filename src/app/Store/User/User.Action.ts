@@ -21,6 +21,7 @@ export const GET_ROLES_SUCC='[user] get roles succ'
 
 export const GET_USERBYCODE='[user] get userbycode'
 export const GET_USERBYCODE_SUCC='[user] get userbycode succ'
+export const UPDATE_ROLE='[user] update role'
 
 
 export const beginRegister=createAction(BEGIN_REGISTER,props<{userdata:Users}>())
@@ -42,4 +43,4 @@ export const getrolessuccess=createAction(GET_ROLES_SUCC,props<{rolelist:Roles[]
 export const getuserbydcode=createAction(GET_USERBYCODE,props<{username:string}>())
 export const getuserbycodesuccess=createAction(GET_USERBYCODE_SUCC,props<{userinfo:Userinfo}>())
 
-
+export const updateuserrole = createAction(UPDATE_ROLE,props<{userrole:string,userid:number}>())
