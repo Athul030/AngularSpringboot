@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usercred, Userinfo, Users } from '../Store/Model/User.model';
+import { Roleaccess, Roles, Usercred, Userinfo, Users } from '../Store/Model/User.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,48 @@ export class UserService {
 
    UserLogin(userdata:Usercred){
     return this.http.get<Userinfo[]>(this.APIBaseUrl+'?username='+userdata.username+'&password='+userdata.password)
+   }
+
+   Duplicateusername(username:string): Observable<Userinfo[]>{
+    return this.http.get<Userinfo[]>(this.APIBaseUrl+'?username='+username)
+   }
+
+   GetMenubyRole(userrole:string): Observable<Roleaccess[]>{
+    return this.http.get<Roleaccess[]>('http://localhost:3000/roleaccess?role='+userrole)
+   }
+
+
+   HaveMenuAccess(userrole: string, menuname: string): Observable<Roleaccess[]> {
+    return this.http.get<Roleaccess[]>('http://localhost:3000/roleaccess?role='+userrole+'&menu='+menuname);
+  }
+
+  GetAllUsers(): Observable<Users[]> {
+    return this.http.get<Users[]>(this.APIBaseUrl);
+  }
+
+  GetAllRoles(): Observable<Roles[]> {
+    return this.http.get<Roles[]>('http://localhost:3000/role');
+  }
+
+   SetUserToLocalStorage(userdata:Userinfo){
+    localStorage.setItem('userdata',JSON.stringify(userdata))
+   }
+
+   GetuserdatafromStorage(){
+    let _obj:Userinfo={
+      id:0,
+      username:'',
+      email:'',
+      name:'',
+      role:'',
+      status:false
+    }
+    if(localStorage.getItem('userdata')!=null){
+      let jsonstring=localStorage.getItem('userdata') as string
+      _obj=JSON.parse(jsonstring)
+      return _obj
+    }else{
+      return _obj
+    }
    }
 }

@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { UserService } from "src/app/service/user.service";
-import { beginLogin, beginRegister } from "./User.Action";
-import { catchError, exhaustMap, map, of } from "rxjs";
+import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, fetchmenu, fetchmenusuccess, getroles, getrolessuccess, getuserbycodesuccess, getuserbydcode, getusers, getuserssuccess } from "./User.Action";
+import { catchError, exhaustMap, map, of, switchMap } from "rxjs";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { showalert } from "../Common/App.Action";
 import { Router } from "@angular/router";
+import { Userinfo } from "../Model/User.model";
 
 
 @Injectable()
@@ -47,19 +48,21 @@ export class UserEffects{
     _userlogin = createEffect(()=>
     this.action.pipe(
         ofType(beginLogin),
-        exhaustMap((action)=>{
+        switchMap((action)=>{
             return this.service.UserLogin(action.usercred).pipe(
-                map((data)=>{
+                switchMap((data:Userinfo[])=>{
                     if(data.length>0){
                     const _userdata=data[0];
                     if(_userdata.status===true){
+                        this.service.SetUserToLocalStorage(_userdata)
                     this.router.navigate([''])
-                    return showalert({message:'Login successfully',resulttype:'pass'})
+                    return of(fetchmenu({userrole:_userdata.role}),
+                    showalert({message:'Login successfully',resulttype:'pass'}))
                     }else{
-                        return showalert({message:'Inactive User',resulttype:'fail'})
+                        return of(showalert({message:'Inactive User',resulttype:'fail'}))
                     }
                 }else{
-                    return showalert({message:'Login failed: Invalid credentials',resulttype:'fail'})
+                    return of(showalert({message:'Login failed: Invalid credentials',resulttype:'fail'}))
                 }
                 }),
                 
@@ -67,4 +70,85 @@ export class UserEffects{
         })
     )
     )
+
+
+    _duplicateuser = createEffect(()=>
+    this.action.pipe(
+        ofType(duplicateUser),
+        switchMap((action)=>{
+            return this.service.Duplicateusername(action.username).pipe(
+                switchMap((data)=>{
+                    if(data.length>0){
+                        return of(duplicateUserSuccess({isdup:true}),
+                        showalert({message:'Username exists already',resulttype:'fail'}))
+                    }else{
+                        return of(duplicateUserSuccess({isdup:false}))
+                    }   }),
+                    catchError((_error) => of(showalert({ message: 'Registerion Failed due to :.' + _error.message, resulttype: 'fail' })))
+            )
+        })
+    )
+    )
+
+    _loadmenubyrole = createEffect(()=>
+    this.action.pipe(
+        ofType(fetchmenu),
+        exhaustMap((action)=>{
+            return this.service.GetMenubyRole(action.userrole).pipe(
+                map((data)=>{
+                    return fetchmenusuccess({ menulist: data })
+                }),
+                    catchError((_error) => of(showalert({ message: 'Failed to fetch mmenu list', resulttype: 'fail' })))
+                )  
+                })
+            )
+    )
+
+
+    _getallusers = createEffect(()=>
+    this.action.pipe(
+        ofType(getusers),
+        exhaustMap((action)=>{
+            return this.service.GetAllUsers().pipe(
+                map((data)=>{
+                    return getuserssuccess({ userlist: data })
+                }),
+                    catchError((_error) => of(showalert({ message: 'Failed to fetch user info', resulttype: 'fail' })))
+                )  
+                })
+            )
+    )
+
+    _getallRoles = createEffect(()=>
+    this.action.pipe(
+        ofType(getroles),
+        exhaustMap((action)=>{
+            return this.service.GetAllRoles().pipe(
+                map((data)=>{
+                    return getrolessuccess({ rolelist: data })
+                }),
+                    catchError((_error) => of(showalert({ message: 'Failed to fetch role list', resulttype: 'fail' })))
+                )  
+                })
+            )
+    )
+
+    _getuserbycode = createEffect(()=>
+    this.action.pipe(
+        ofType(getuserbydcode),
+        switchMap((action)=>{
+            return this.service.Duplicateusername(action.username).pipe(
+                switchMap((data)=>{
+                    if(data.length>0){
+                        return of(getuserbycodesuccess({userinfo:data[0]}))
+                    }else{
+                        return of(duplicateUserSuccess({isdup:false}))
+                    }   }),
+                    catchError((_error) => of(showalert({ message: 'Get userbycode Failed due to :.' + _error.message, resulttype: 'fail' })))
+            )
+        })
+    )
+    )
+
+    
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Usercred } from 'src/app/Store/Model/User.model';
@@ -9,10 +9,13 @@ import { beginLogin } from 'src/app/Store/User/User.Action';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   constructor(private builder:FormBuilder, private store:Store){
 
+  }
+  ngOnInit(): void {
+    localStorage.clear()
   }
 
   loginform=this.builder.group({

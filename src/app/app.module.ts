@@ -22,6 +22,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserReducer } from './Store/User/User.Reducer';
 import { UserEffects } from './Store/User/User.Effects';
+import { MenubarComponent } from './components/menubar/menubar.component';
+import { UserlistComponent } from './components/userlist/userlist.component';
+import { RolepopupComponent } from './components/rolepopup/rolepopup.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { UserEffects } from './Store/User/User.Effects';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    CustomerlistingComponent
+    CustomerlistingComponent,
+    MenubarComponent,
+    UserlistComponent,
+    RolepopupComponent
   ],
   imports: [
     BrowserModule,

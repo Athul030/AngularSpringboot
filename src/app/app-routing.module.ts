@@ -4,11 +4,15 @@ import { AssociatelistingComponent } from './components/associatelisting/associa
 import { CustomerlistingComponent } from './components/customerlisting/customerlisting.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { authGuard } from './guard/auth.guard';
+import { UserlistComponent } from './components/userlist/userlist.component';
 
 const routes: Routes = [
-  {path:'',component:AssociatelistingComponent},
-  {path:'associate',component:AssociatelistingComponent},
-  {path:'customer',component:CustomerlistingComponent},
+  {path:'',component:HomeComponent,canActivate:[authGuard]},
+  {path:'associate',component:AssociatelistingComponent,canActivate:[authGuard]},
+  {path:'customer',component:CustomerlistingComponent,canActivate:[authGuard]},
+  {path:'user',component:UserlistComponent,canActivate:[authGuard]},
   {path:'register',component:RegisterComponent},
   {path:'login',component:LoginComponent}
 

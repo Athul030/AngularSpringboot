@@ -3,7 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { showalert } from 'src/app/Store/Common/App.Action';
 import { Users } from 'src/app/Store/Model/User.model';
-import { beginRegister } from 'src/app/Store/User/User.Action';
+import { DUPLICATE_USER, beginRegister, duplicateUser } from 'src/app/Store/User/User.Action';
+import { isDuplicateUser } from 'src/app/Store/User/User.Selectors';
 
 @Component({
   selector: 'app-register',
@@ -51,6 +52,15 @@ export class RegisterComponent {
   }
 
   FunctionDuplicateUser(){
-
+    const username=this.registerform.value.username as string
+    if(username!=''){
+      this.store.dispatch(duplicateUser({username:username}))
+      this.store.select(isDuplicateUser).subscribe(item=>{
+        const isexist = item;
+        if(isexist){
+          this.registerform.controls['username'].reset
+        }
+      })
+    }
   }
 }

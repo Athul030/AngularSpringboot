@@ -81,17 +81,81 @@
       "status": true
     }
   ],
+
+
   "user": [
     {
       "username": "admin",
-      "password": "12345",
-      "name": "adminuser",
-      "email": "admin@gmail.com",
-      "phone": "9633513774",
+      "password": "admin",
+      "name": "Adminuser",
+      "email": "ad@in.com",
+      "phone": "678888",
       "gender": "male",
-      "role": "user",
+      "role": "admin",
       "status": true,
       "id": 1
+    },
+    {
+      "username": "testuser",
+      "password": "test",
+      "name": "NT User",
+      "email": "nt@in.com",
+      "phone": "678889999",
+      "gender": "female",
+      "role": "user",
+      "status": true,
+      "id": 2
+    }
+  ],
+  "role":[
+    {
+      "code":"admin",
+      "name":"Admin"
+    },{
+      "code":"manager",
+      "name":"Manager"
+    },{
+      "code":"user",
+      "name":"User"
+    }
+  ],
+  "menu":[
+    {
+      "code":"associate",
+      "name":"Associate"
+    },{
+      "code":"customer",
+      "name":"Customer"
+    },{
+      "code":"user",
+      "name":"User"
+    }
+  ],
+  "roleaccess":[
+    {
+      "role":"admin",
+      "menu":"associate"
+    },
+    {
+      "role":"admin",
+      "menu":"customer"
+    },
+    {
+      "role":"admin",
+      "menu":"user"
+    },
+    {
+      "role":"manager",
+      "menu":"associate"
+    },
+    {
+      "role":"manager",
+      "menu":"customer"
+    },
+    {
+      "role":"user",
+      "menu":"associate"
     }
   ]
+
 }
