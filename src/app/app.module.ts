@@ -1,57 +1,65 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AssociatelistingComponent } from './components/associatelisting/associatelisting.component';
-import { AddassociateComponent } from './components/addassociate/addassociate.component';
-import { MaterialModule } from './Material.Module';
-import {HttpClientModule} from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './component/header/header.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AssociateReducer } from './Store/Associate/Associate.Reducer';
-import { AssociateEffects } from './Store/Associate/Associate.Effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HomeComponent } from './pages/home/home.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { MatTableModule } from '@angular/material/table';
-import { AppEffects } from './Store/Common/App.Effects';
-import { HomeComponent } from './components/home/home.component';
-import { CustomerlistingComponent } from './components/customerlisting/customerlisting.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { UserReducer } from './Store/User/User.Reducer';
-import { UserEffects } from './Store/User/User.Effects';
-import { MenubarComponent } from './components/menubar/menubar.component';
-import { UserlistComponent } from './components/userlist/userlist.component';
-import { RolepopupComponent } from './components/rolepopup/rolepopup.component';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import {userReducer} from './state/user.reducers'
+import {userEffects} from './state/user.effects'
+import { AppEffects } from './common/common.effects';
+import { AuthInterceptorInterceptor } from './services/authInterceptor/auth-interceptor.interceptor';
+import { AdminDashboardComponent } from './pages/AdminDashboard/admin-dashboard/admin-dashboard.component';
+import { UserDashboardComponent } from './pages/UserDashboard/user-dashboard/user-dashboard.component';
+import { MaterialModule } from './Material.Module';
+import { AddUserComponent } from './pages/AdminDashboard/add-user/add-user.component';
+import { EditUserComponent } from './pages/AdminDashboard/edit-user/edit-user.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+
+
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AssociatelistingComponent,
-    AddassociateComponent,
-    RegisterComponent,
-    LoginComponent,
-    HomeComponent,
-    CustomerlistingComponent,
-    MenubarComponent,
-    UserlistComponent,
-    RolepopupComponent
+      AppComponent,
+      HeaderComponent,
+      FooterComponent,
+      LoginComponent,
+      RegisterComponent,
+      HomeComponent,
+      AdminDashboardComponent,
+      AddUserComponent,
+      UserDashboardComponent,
+      EditUserComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MaterialModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    StoreModule.forRoot({associate:AssociateReducer,user:UserReducer}),
-    EffectsModule.forRoot([AssociateEffects,AppEffects,UserEffects]),
-    StoreDevtoolsModule.instrument({maxAge:25,logOnly: !isDevMode() }),
-    MatTableModule 
+      BrowserModule,
+      AppRoutingModule,
+      MaterialModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      StoreModule.forRoot({'users':userReducer}),
+      EffectsModule.forRoot([userEffects,AppEffects]),
+      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:AuthInterceptorInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
