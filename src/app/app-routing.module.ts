@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AssociatelistingComponent } from './components/associatelisting/associatelisting.component';
-import { CustomerlistingComponent } from './components/customerlisting/customerlisting.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { authGuard } from './guard/auth.guard';
-import { UserlistComponent } from './components/userlist/userlist.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AdminDashboardComponent } from './pages/AdminDashboard/admin-dashboard/admin-dashboard.component';
+import { UserDashboardComponent } from './pages/UserDashboard/user-dashboard/user-dashboard.component';
+import { loginGuardGuard } from './services/authGuards/login-guard.guard';
+import { adminguardGuard } from './services/authGuards/adminguard.guard';
+import { userguardGuard} from './services/authGuards/userguard.guard'
 
 const routes: Routes = [
-  {path:'',component:HomeComponent,canActivate:[authGuard]},
-  {path:'associate',component:AssociatelistingComponent,canActivate:[authGuard]},
-  {path:'customer',component:CustomerlistingComponent,canActivate:[authGuard]},
-  {path:'user',component:UserlistComponent,canActivate:[authGuard]},
-  {path:'register',component:RegisterComponent},
-  {path:'login',component:LoginComponent}
-
+  {path:'',component:HomeComponent,pathMatch:'full'},
+  {path:'register',component:RegisterComponent,pathMatch:'full'},
+  {path:'login',component:LoginComponent,pathMatch:'full',canActivate:[loginGuardGuard]},
+  {path:'adminDashboard',component:AdminDashboardComponent,pathMatch:'full',canActivate:[adminguardGuard]},
+  {path:'userDashboard',component:UserDashboardComponent,pathMatch:'full',canActivate:[userguardGuard]}
 ];
 
 @NgModule({

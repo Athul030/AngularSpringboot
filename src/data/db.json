@@ -103,6 +103,17 @@
       "role": "manager",
       "status": true,
       "id": 2
+    },
+    {
+      "username": "ntuser",
+      "password": "12345",
+      "name": "NT User 2",
+      "email": "nt2@in.com",
+      "phone": "1234567890",
+      "gender": "male",
+      "role": "user",
+      "status": true,
+      "id": 3
     }
   ],
   "role": [

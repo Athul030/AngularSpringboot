@@ -12,9 +12,6 @@ import {MatPaginatorModule} from "@angular/material/paginator"
 import {MatSortModule} from "@angular/material/sort"
 import {MatSnackBarModule} from "@angular/material/snack-bar"
 import {MatToolbarModule} from "@angular/material/toolbar"
-import {MatSidenavModule} from "@angular/material/sidenav"
-import {MatMenuModule} from "@angular/material/menu"
-import {MatListModule} from "@angular/material/list"
 import {MatIconModule} from "@angular/material/icon"
 
 
@@ -33,9 +30,6 @@ import {MatIconModule} from "@angular/material/icon"
         MatSortModule,
         MatSnackBarModule,
         MatToolbarModule,
-        MatSidenavModule,
-        MatMenuModule,
-        MatListModule,
         MatIconModule
         ]
 })

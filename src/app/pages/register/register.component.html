@@ -1,0 +1,107 @@
+<div class="bootstrap-wrapper">
+
+    <div class="container mt-20">
+        <div class="row">
+          
+            <div class="col-md-6 offset-md-3">
+              <mat-card>
+                <div class="container text-center">
+                    <img src="../../../assets/logo.png" alt="">
+                </div>
+                <h1 class="text-center">Register Here</h1>
+
+
+
+                <form  [formGroup]="registerform"  (ngSubmit)="onSubmit()">
+
+                    <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>First Name</mat-label>
+                        <input type="text" formControlName="firstName" name="firstName" matInput placeholder="Enter Here">
+                        
+                          <div *ngIf="registerform.get('firstName')?.invalid && registerform.get('firstName')?.touched">
+                            <small class="text-danger" *ngIf="registerform.get('firstName')?.errors?.['required']">FirstName is Required</small>
+                            <small class="text-danger" *ngIf="registerform.get('firstName')?.errors?.['minlength']">FirstName requires min 4 characters</small>
+                          </div>
+                      
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>Last Name</mat-label>
+                        <input type="text" formControlName="lastName"   name="lastName" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('lastName')?.invalid && registerform.get('lastName')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('lastName')?.errors?.['required']">LastName is Required</small>
+                          <small class="text-danger" *ngIf="registerform.get('lastName')?.errors?.['minlength']">LastName requires min 4 characters</small>
+                        </div>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>User Name</mat-label>
+                        <input type="text"  formControlName="username" name="username" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('username')?.invalid && registerform.get('username')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('username')?.errors?.['required']">UserName is Required</small>
+                          <small class="text-danger" *ngIf="registerform.get('username')?.errors?.['minlength']">UserName requires min 4 characters</small>
+                        </div>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input type="email" formControlName="email" name="email" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('email')?.invalid && registerform.get('email')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('email')?.errors?.['required']">Email is Required</small>
+                          <small class="text-danger" *ngIf="registerform.get('email')?.errors?.['email']">Email is not valid</small>
+                        </div>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>Phone Number</mat-label>
+                        <input type="text"  formControlName="phoneNumber" name="phoneNumber" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('phoneNumber')?.invalid && registerform.get('phoneNumber')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('phoneNumber')?.errors?.['required']">PhoneNumber is Required</small>
+                          <small class="text-danger" *ngIf="registerform.get('phoneNumber')?.errors?.['minlength']">phoneNumber requires min 10 numbers</small>
+                        </div>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>Gender</mat-label>
+                        <input type="text"  formControlName="gender" name="gender" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('gender')?.invalid && registerform.get('gender')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('gender')?.errors?.['required']">Gender is Required</small>
+                          
+                        </div>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>Password</mat-label>
+                        <input type="password"  formControlName="password" name="password" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('password')?.invalid && registerform.get('password')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('password')?.errors?.['required']">Password is Required</small>
+                          <small class="text-danger" *ngIf="registerform.get('password')?.errors?.['minlength']">Password requires min 4 characters</small>
+                        </div>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill"  class="full-width">
+                        <mat-label>Confirm Password</mat-label>
+                        <input type="password"  formControlName="confirmPassword" name="confirmPassword" matInput placeholder="Enter Here">
+                        <div *ngIf="registerform.get('confirmPassword')?.invalid && registerform.get('confirmPassword')?.touched">
+                          <small class="text-danger" *ngIf="registerform.get('confirmPassword')?.errors?.['required']">Password is Required</small>
+                          
+                        </div>
+                      </mat-form-field>
+
+                      <div class="container text-center">
+                        <button mat-raised-button color="accent" type="submit">Register</button>
+                        <button class="reset" mat-raised-button color="primary">Reset</button>
+
+
+                      </div>
+                </form>
+              </mat-card>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
